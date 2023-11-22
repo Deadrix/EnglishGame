@@ -11,19 +11,15 @@
 </footer>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const toggleMenu = document.getElementById('toggleMenu');
-        const menu = document.getElementById('menu');
-        const link1 = document.getElementById('link1');
-        const link2 = document.getElementById('link2');
+        const toggleMenu = $("#toggleMenu");
+        const menu = $("#menu");
 
-        toggleMenu.addEventListener('click', function () {
-            menu.classList.toggle('hidden');
+        toggleMenu.click(function () {
+            menu.toggle('hidden');
         });
-        link1.addEventListener('click', function () {
-            menu.classList.toggle('hidden');
-        });
-        link2.addEventListener('click', function () {
-            menu.classList.toggle('hidden');
+
+        $(".link").click(function () {
+            menu.toggle('hidden');
         });
     });
 </script>

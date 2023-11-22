@@ -5,7 +5,7 @@ require_once "../templates/header.php";
 
 <form action="./play.php" method="post" class="flex flex-col justify-center items-center gap-2 w-full">
 
-    <div class="border-4 border-ppblue rounded-2xl p-3 w-full">
+    <div class="border-4 border-ppblue rounded-2xl p-3 w-full flex justify-center">
         <label class="text-3xl">
             Debate Time :
             <input type="number" id="minutes" name="minutes" min="0" max="59" placeholder="min" required class="bg-ppyellow text-end" value="02">
@@ -13,17 +13,17 @@ require_once "../templates/header.php";
             <input type="number" id="secondes" name="secondes" min="0" max="59" placeholder="sec" required class="bg-ppyellow text-start" value="30">
         </label>
     </div>
-    <div id="company1" class="flex flex-col gap-2">
-        <div class="border-4 border-ppblue rounded-2xl p-3 w-full">
-            <label class="text-3xl row">
+    <div id="company1" class="flex flex-col gap-2 w-full">
+        <div class="border-4 border-ppblue rounded-2xl p-3 w-full flex justify-center">
+            <label class="text-3xl">
                 <span>Company Name :</span>
                 <input type="text" name="companiesName[]" placeholder="Type name" required class="bg-ppyellow border border-ppred rounded-2xl p-2">
             </label>
         </div>
     </div>
-    <div id="company2" class="flex flex-col gap-2">
-        <div class="border-4 border-ppblue rounded-2xl p-3 w-full">
-            <label class="text-3xl row">
+    <div id="company2" class="flex flex-col gap-2 w-full">
+        <div class="border-4 border-ppblue rounded-2xl p-3 w-full flex justify-center">
+            <label class="text-3xl">
                 <span>Company Name :</span>
                 <input type="text" name="companiesName[]" placeholder="Type name" required class="bg-ppyellow border border-ppred rounded-2xl p-2">
             </label>
@@ -42,7 +42,7 @@ require_once "../templates/header.php";
         let newCompany = document.createElement("div");
         newCompany.classList.add("border-4", "border-ppblue", "rounded-2xl", "p-3", "w-full");
         newCompany.innerHTML = `
-            <label class="text-3xl row">
+            <label class="text-3xl">
                 <span>Company Name :</span>
                 <input type="text" name="companiesName[]" placeholder="Type name" required class="bg-ppyellow border border-ppred rounded-2xl p-2">
             </label>
