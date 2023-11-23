@@ -235,6 +235,7 @@ require_once "../templates/header.php";
     });
 </script>
 
+
 <?php
 require_once "../templates/footer.php";
 ?>

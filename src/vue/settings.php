@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!empty($_SESSION["companies"])) {
+    header("Location: ./play.php");
+    exit();
+}
 $page_name = "Settings";
 require_once "../templates/header.php";
 ?>

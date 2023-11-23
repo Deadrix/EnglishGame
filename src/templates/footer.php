@@ -9,6 +9,7 @@
         </div>
     </div>
 </footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toggleMenu = $("#toggleMenu");
@@ -23,7 +24,6 @@
         });
     });
 </script>
-
 
 </body>
 </html>

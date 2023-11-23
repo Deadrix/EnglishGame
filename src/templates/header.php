@@ -27,8 +27,8 @@
         <div id="menu" class="hidden">
             <div class="p-4 mt-4 flex flex-col">
                 <a href="../vue/rules.php" class="link text-3xl text-ppyellow">Rules</a>
-                <a href="../vue/settings.php" class="link text-3xl text-ppyellow">Play !</a>
-                <a href="../vue/play.php" class="link text-3xl text-ppyellow">Resume</a>
+                <a id="playLink" href="../vue/settings.php" class="link text-3xl text-ppyellow">Play !</a>
+                <a id="resumeLink" href="../vue/play.php" class="link text-3xl text-ppyellow hidden">Resume</a>
                 <a href="../controller/newgame.php" class="link text-3xl text-ppyellow">New Game</a>
             </div>
         </div>
