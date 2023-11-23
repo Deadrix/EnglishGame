@@ -2,11 +2,17 @@
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_SESSION["newGame"])) {
-        $_SESSION["minutes"] = $_POST["minutes"];
-        $_SESSION["secondes"] = $_POST["secondes"];
+        $_SESSION["minutes"] = ltrim($_POST["minutes"], '0');
+        if ($_SESSION["minutes"] < 10) {
+            $_SESSION["minutes"] = "0" . $_SESSION["minutes"];
+        }
+        $_SESSION["secondes"] = ltrim($_POST["secondes"], '0');
+        if ($_SESSION["secondes"] < 10) {
+            $_SESSION["secondes"] = "0" . $_SESSION["secondes"];
+        }
         $rawCompanies = $_POST["companiesName"];
         $companiesNumber = count($rawCompanies);
-        $maxPoints = 2000;
+        $maxPoints = 10000;
         $companyPoint = $maxPoints / $companiesNumber;
         foreach ($rawCompanies as $key => $company) {
             $companies[$key]["name"] = $company;
