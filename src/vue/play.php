@@ -13,6 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $rawCompanies = $_POST["companiesName"];
         $companiesNumber = count($rawCompanies);
         $maxPoints = 10000;
+        $_SESSION["maxPoints"] = $maxPoints;
         $companyPoint = $maxPoints / $companiesNumber;
         foreach ($rawCompanies as $key => $company) {
             $companies[$key]["name"] = $company;
@@ -49,10 +50,19 @@ require_once "../templates/header.php";
 <form id="playForm" action="./duel.php" method="post" class="flex flex-col justify-center items-center gap-2 w-full">
     <div id="companies" class="flex flex-col gap-2 w-full">
         <?php if (!empty($_SESSION["companies"])) foreach ($_SESSION["companies"] as $key => $company) { ?>
-            <div class="company border-4 border-ppred rounded-2xl p-3 w-full flex justify-between">
-                <input type="hidden" name="company_keys[<?php echo $key ?>]" value="0">
-                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$key]["name"]; ?></p>
-                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$key]["point"]; ?></p>
+            <div class="company border-4 border-ppred rounded-2xl p-3 w-full">
+                <div class="w-full flex justify-between items-baseline">
+                    <input type="hidden" name="company_keys[<?php echo $key ?>]" value="0">
+                    <div class="flex items-baseline">
+                        <img src="../assets/company.png" class="h-12" alt="">
+                        <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$key]["name"]; ?></p>
+                    </div>
+                    <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$key]["point"]; ?></p>
+                </div>
+                <div class="w-full h-6 bg-gray-400 rounded-full m-0 p-0">
+                    <div class="h-6 bg-ppblue rounded-2xl m-0 p-0"
+                         style="width: <?php echo($_SESSION["companies"][$key]["point"] / $_SESSION["maxPoints"] * 100) ?>%"></div>
+                </div>
             </div>
         <?php } ?>
     </div>
@@ -103,6 +113,26 @@ require_once "../templates/header.php";
     </div>
 </div>
 
+<div class="fixed z-10 inset-0 hidden m-12" id="errorModal">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-md">
+            <div class="text-center">
+                <div class="flex justify-end">
+                    <button onclick="closeErrorModal();"
+                            class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <h3 class="text-lg font-semibold mt-2">Heyyy !</h3>
+                <p>You must select 2 companies</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 
     <?php if (!empty($_SESSION["winner"]["name"])) { ?>
@@ -125,6 +155,14 @@ require_once "../templates/header.php";
 
     function closeWinnerModal() {
         document.getElementById('winnerModal').classList.add('hidden');
+    }
+
+    function openErrorModal() {
+        document.getElementById('errorModal').classList.remove('hidden');
+    }
+
+    function closeErrorModal() {
+        document.getElementById('errorModal').classList.add('hidden');
     }
 
     function restartGame() {
@@ -158,7 +196,7 @@ require_once "../templates/header.php";
             if (selectedNumber === maxSelections) {
                 $("#playForm").submit();
             } else {
-                alert("You must select 2 companies");
+                openErrorModal();
             }
         });
     });

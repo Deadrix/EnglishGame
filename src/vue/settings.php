@@ -34,8 +34,8 @@ require_once "../templates/header.php";
             </label>
         </div>
     </div>
-    <button id="addCompany">Add company</button>
-    <input type="submit" value="Play !">
+    <button id="addCompany" class="m-0 mt-3 rounded-full py-3 w-2/3 text-center bg-ppblue text-ppyellow text-xl border-4 border-ppred">Add company</button>
+    <input class="m-0 mt-2 rounded-full py-3 w-2/3 text-center bg-ppblue text-ppyellow text-xl border-4 border-ppred" type="submit" value="Play !">
 
 </form>
 

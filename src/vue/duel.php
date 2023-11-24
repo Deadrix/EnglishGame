@@ -26,10 +26,17 @@ require_once "../templates/header.php";
 
     <div id="companies" class="flex flex-col items-center gap-2 w-full">
 
-        <div id="company0" class="company border-4 border-ppred rounded-2xl p-3 w-full flex justify-between">
-            <input type="hidden" value="<?= $duelist[0] ?>">
-            <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[0]]["name"]; ?></p>
-            <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[0]]["point"]; ?></p>
+        <div id="company0" class="company border-4 border-ppred rounded-2xl p-3 w-full flex flex-col items-center">
+            <img src="../assets/company.png" alt="" class="h-[140px] max-w-[250px]">
+            <div class="w-full flex justify-between">
+                <input type="hidden" value="<?= $duelist[0] ?>">
+                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[0]]["name"]; ?></p>
+                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[0]]["point"]; ?></p>
+            </div>
+            <div class="w-full h-6 bg-gray-200 rounded-full">
+                <div class="h-6 bg-blue-600 rounded-2xl"
+                     style="width: <?php echo($_SESSION["companies"][$duelist[0]]["point"] / $_SESSION["maxPoints"] * 100) ?>%"></div>
+            </div>
         </div>
 
         <div class="flex justify-center w-full">
@@ -39,10 +46,17 @@ require_once "../templates/header.php";
             <div id="timerDisplay" class="text-2xl"><?= $timer ?></div>
         </div>
 
-        <div id="company1" class="company border-4 border-ppred rounded-2xl p-3 w-full flex justify-between">
-            <input type="hidden" value="<?= $duelist[1] ?>">
-            <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[1]]["name"]; ?></p>
-            <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[1]]["point"]; ?></p>
+        <div id="company1" class="company border-4 border-ppred rounded-2xl p-3 w-full flex flex-col items-center">
+            <img src="../assets/company.png" alt="" class="h-[140px] max-w-[250px]"">
+            <div class="w-full flex justify-between">
+                <input type="hidden" value="<?= $duelist[1] ?>">
+                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[1]]["name"]; ?></p>
+                <p class="m-0 p-0 text-2xl"><?= $_SESSION["companies"][$duelist[1]]["point"]; ?></p>
+            </div>
+            <div class="w-full h-6 bg-gray-200 rounded-full">
+                <div class="h-6 bg-blue-600 rounded-2xl"
+                     style="width: <?php echo($_SESSION["companies"][$duelist[1]]["point"] / $_SESSION["maxPoints"] * 100) ?>%"></div>
+            </div>
         </div>
 
         <div id="betButton" class=" justify-between gap-2 w-full hidden">
@@ -72,7 +86,36 @@ require_once "../templates/header.php";
     </div>
 </form>
 
+<div class="fixed z-10 inset-0 hidden m-12" id="errorModal">
+    <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-md">
+            <div class="text-center">
+                <div class="flex justify-end">
+                    <button onclick="closeErrorModal();"
+                            class="text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <h3 class="text-lg font-semibold mt-2">Heyyy !</h3>
+                <p>You must select 1 bet and 1 company</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+
+    function openErrorModal() {
+        document.getElementById('errorModal').classList.remove('hidden');
+    }
+
+    function closeErrorModal() {
+        document.getElementById('errorModal').classList.add('hidden');
+    }
+
     $(document).ready(function () {
         let selectedNumber = 0;
         let selectedBet = 0;
@@ -178,13 +221,13 @@ require_once "../templates/header.php";
             if (selectedNumber === 1 && selectedBet === 1) {
                 duelForm.submit();
             } else {
-                alert("You must select 1 bet and 1 companies");
+                openErrorModal();;
             }
         });
 
         debateButton.click(function () {
             if (runningTimer === false) {
-                timerWorker.postMessage({ command: 'start', minutes: minutes, seconds: seconds });
+                timerWorker.postMessage({command: 'start', minutes: minutes, seconds: seconds});
                 runningTimer = true;
                 debateButton.text("Finish round !");
             } else {
